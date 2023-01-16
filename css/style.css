@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-image: url(../img/mine.jpg);
+}
+
+.img {
+    width: 55px;
+    height: 55px;
+}
+
+.height-fit-content {
+    height: fit-content;
+}
+
+.bg-sky-blue {
+    background-color: rgb(142, 218, 252);
+}
+
+.sky-blue {
+    color: rgb(142, 218, 252);
+}
+
+.fa-search{
+    top: 20px;
+    left: 26px;
+}
+
+.border-gray {
+    border-left: 1px solid rgb(208, 208, 208);
+}

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Slider</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQIYicR65iaqukzvf/nwasF0nqhPay5w/9lJmVM2hMDcnK1OnMGCdVK+iQrJ7lzPJQd1w==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.2/axios.min.js" integrity="sha512-QTnb9BQkG4fBYIt9JGvYmxPpd6TBeKp6lsUrtiVQsrJ9sb33Bn9s0wMQO9qVBFbPX3xHRAsBHvXlcsrnJjExjg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="./css/style.css" />
+</head>
+
+<body>
+
+    <div id="app">
+
+        <div class="container-xxl width bg-primary my-5 mx-auto p-0 d-flex">
+
+            <nav id="sidebarMenu" class="col-4 sidebar bg-secondary h-100">
+
+                <div class="bg-body-secondary height-fit-content d-flex justify-content-between align-items-center p-2 w-100">
+                    <div>
+                        <img :src="`img/avatar${user.avatar}.jpg`" :alt="user.name" class="img rounded-circle">
+                        <span class="p-3">
+                            {{user.name}}
+                        </span>
+                    </div>
+                    <div>
+                        <i class="fa-solid fa-circle-notch p-2 text-black-50 fs-5"></i>
+                        <i class="fa-solid fa-message p-2 text-black-50 fs-5"></i>
+                        <i class="fa-solid fa-ellipsis-vertical p-2 text-black-50 fs-5"></i>
+                    </div>
+                </div>
+
+                <div class="height-fit-content w-100 d-flex p-3 bg-sky-blue">
+                    <div class="img rounded-circle bg-white d-flex justify-content-center align-items-center fs-5">
+                        <i class="fa-solid fa-bell-slash sky-blue"></i>
+                    </div>
+                    <span class="px-2">
+                        <h6>Ricevi notifiche di nuovi messaggi</h6>
+                        <div class="text-decoration-underline">Attiva notifiche desktop</div>
+                    </span>
+                </div>
+
+                <div class="search position-relative p-2 bg-white">
+                    <i class="fa fa-search position-absolute align-middle"></i>
+                    <input type="text" class="form-control ps-5" placeholder="Cerca...">
+                </div>
+
+                <div class="contacts w-100 bg-white h-75"  style="overflow-y:scroll;">
+                    <div v-for="(contact, index) in contacts" :class="(index === contactActive) ? 'contact active' : 'contact'" @click="setActiveC(index)" v-show="contact.visible">
+                            <div>
+                                <img :src="`img/avatar${contact.avatar}.jpg`" :alt="contact.name" class="img rounded-circle">
+                            </div>
+                            <div>
+                                <h3>
+                                    <span>{{contact.name}}</span>
+                                    <span>{{getLastData(index)}}</span>
+                                </h3>
+                                <small>{{getLastMessages(index)}}</small>
+                            </div>
+                    </div>
+                </div>
+            </nav>
+
+            <div class="content-right col-8 position-relative">
+                <header>
+                    <div class="row">
+                        <div>
+                            <div class="border-gray bg-body-secondary height-fit-content d-flex justify-content-between align-items-center p-2 w-100">
+                                <div class="align-middle d-flex">
+                                    <div>
+                                        <img :src="`img/avatar${contacts[contactActive].avatar}.jpg`" :alt="contacts[contactActive].name" class="img rounded-circle">
+                                    </div>
+                                    <div class="d-flex flex-column justify-content-center ps-3">
+                                        <span>
+                                            {{' ' + user.name}}
+                                        </span>
+                                        <span>
+                                            data
+                                        </span>
+                                    </div>
+                                </div>
+                                
+                                <div>
+                                    <i class="fa-solid fa-circle-notch p-2 text-black-50 fs-5"></i>
+                                    <i class="fa-solid fa-paperclip p-2 text-black-50 fs-5"></i>
+                                    <i class="fa-solid fa-magnifying-glass p-2 text-black-50 fs-5"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+                
+                <main>
+                    <div class="row">
+                        <div class="col-12">
+                                
+                        </div>
+                    </div>
+                </main>
+    
+                <footer class="position-absolute bottom-0 w-100">
+                    <div class="row">
+                        <div class="col-12">
+                            <div>
+                                <div class="bg-body-secondary height-fit-content d-flex justify-content-between align-items-center p-2 w-100">
+                                    <div>
+                                        <i class="fa-regular fa-face-grin-wide p-2 text-black-50 fs-5"></i>
+                                    </div>
+                                    <div>
+                                        <input type="text" placeholder="Scrivi..." v-model="sendMessage" @keyup.enter="newMessage">
+                                    </div>
+                                    <div>
+                                        <i class="fa-solid fa-microphone p-2 text-black-50 fs-5"></i>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </footer>    
+            </div>
+        </div>
+
+    </div>
+
+    <script src='https://unpkg.com/vue@3/dist/vue.global.js'></script>
+    <script type="text/javascript" src="./js/script.js"></script>
+</body>
+
+</html>
